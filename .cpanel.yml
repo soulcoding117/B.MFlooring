@@ -1,5 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/your-cpanel-username/public_html/your-project-directory
+    - export DEPLOYPATH=/home/zzivsb444qec/public_html/B.MFlooring
     - /bin/cp -r * $DEPLOYPATH/
+
