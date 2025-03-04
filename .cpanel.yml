@@ -2,5 +2,5 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/zzivsb444qec/public_html/B.MFlooring
-    - /bin/cp -r * $DEPLOYPATH/
+    - /bin/rsync -av --delete --exclude='.git/' . $DEPLOYPATH/
 
