@@ -21,7 +21,11 @@ document.addEventListener("DOMContentLoaded", function() {
     toast.appendChild(content);
     toastContainer.appendChild(toast);
 
-    setTimeout(() => toast.remove(), duration);
+    setTimeout(() => {
+      if (toast.parentNode) {
+        toast.parentNode.removeChild(toast);
+      }
+    }, duration);
   }
 
   function hideToast() {
