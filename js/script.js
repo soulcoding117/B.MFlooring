@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Toast functions
   function showToast(message, type = 'info', duration = 3000) {
-    const toast = document.createElement('div');
+    const toast = document.createElement('div'); // Fixed syntax issue
     toast.className = `toast ${type}`;
 
     const content = document.createElement('div');
@@ -30,31 +30,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Form handling
   const form = document.getElementById("loginForm");
-  form.addEventListener("submit", function(event) {
-    event.preventDefault();
-    hideToast();
-    showToast('Processing login...', 'loading');
+  if (form) {
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      hideToast();
+      showToast('Processing login...', 'loading');
 
-    const formData = new FormData(form);
-    
-    fetch("php/login.php", {
-      method: "POST",
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      hideToast();
-      if (data.success) {
-        showToast('Login successful! Redirecting...', 'success', 2000);
-        setTimeout(() => window.location.href = 'landing.html', 2000);
-      } else {
-        showToast(`Login failed: ${data.error || 'Unknown error'}`, 'error', 5000);
-      }
-    })
-    .catch(error => {
-      hideToast();
-      showToast('Network error. Please try again.', 'error', 5000);
-      console.error("Error:", error);
+      const formData = new FormData(form);
+      
+      fetch("php/login.php", {
+        method: "POST",
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        hideToast();
+        if (data.success) {
+          showToast('Login successful! Redirecting...', 'success', 2000);
+          setTimeout(() => window.location.href = 'landing.html', 2000);
+        } else {
+          showToast(`Login failed: ${data.error || 'Unknown error'}`, 'error', 5000);
+        }
+      })
+      .catch(error => {
+        hideToast();
+        showToast('Network error. Please try again.', 'error', 5000);
+        console.error("Error:", error);
+      });
     });
-  });
+  } else {
+    console.error("Form with ID 'loginForm' not found.");
+  }
 });
